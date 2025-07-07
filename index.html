@@ -1,182 +1,251 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ojek Online ZBond</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --primary: #00695C;
-      --primary-light: #00897B;
-      --accent: #00BFA5;
-      --text: #263238;
-      --bg: #FAFAFA;
-      --card: #FFFFFF;
-      --error: #F44336;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: white;
-      padding: 1.2rem;
-      text-align: center;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 1rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    label {
-      font-weight: 600;
-      margin-bottom: .5rem;
-      display: block;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: .75rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .btn {
-      background: var(--accent);
-      border: none;
-      padding: .8rem;
-      width: 100%;
-      color: white;
-      font-weight: bold;
-      border-radius: 8px;
-      margin-top: 1rem;
-      cursor: pointer;
-    }
-
-    #map {
-      height: 300px;
-      width: 100%;
-      border-radius: 8px;
-      margin-top: 1rem;
-      display: none;
-    }
-
-    .price-display {
-      margin-top: 1rem;
-      text-align: center;
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-
-    footer {
-      background: var(--primary);
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ojek Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            background-color: #00aa13;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .map-container {
+            height: 250px;
+            width: 100%;
+            background-color: #ddd;
+            position: relative;
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .order-form {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .btn {
+            background-color: #00aa13;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #008c10;
+        }
+        
+        .price-display {
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .location-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .location-marker {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            font-size: 30px;
+            color: #00aa13;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>🚀 ZBond Ojek Online</h1>
-    <p>Pesan ojek dengan cepat dan aman!</p>
-  </header>
-
-  <div class="container">
-    <div class="form-group">
-      <label for="nama">Nama</label>
-      <input type="text" id="nama" placeholder="Nama lengkap kamu"/>
+    <div class="container">
+        <header>
+            <div class="logo">OjekOnline</div>
+        </header>
+        
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="location-marker">📍</div>
+        </div>
+        
+        <div class="order-form">
+            <div class="price-display">
+                Estimasi Harga: <span id="price">Rp15.000</span>
+            </div>
+            
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="serviceType">Jenis Layanan</label>
+                    <select id="serviceType" required>
+                        <option value="ojek">Ojek</option>
+                        <option value="ojek_box">Ojek Box</option>
+                        <option value="ojek_motor">Ojek Motor</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerName">Nama Anda</label>
+                    <input type="text" id="customerName" placeholder="Masukkan nama lengkap" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerWhatsApp">Nomor WhatsApp</label>
+                    <input type="tel" id="customerWhatsApp" placeholder="Contoh: 6281234567890" required>
+                </div>
+                
+                <div class="form-group location-inputs">
+                    <div>
+                        <label for="pickupLocation">Lokasi Penjemputan</label>
+                        <input type="text" id="pickupLocation" placeholder="Masukkan lokasi penjemputan" required>
+                    </div>
+                    
+                    <div>
+                        <label for="destination">Lokasi Tujuan</label>
+                        <input type="text" id="destination" placeholder="Masukkan lokasi tujuan" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">Pesan Sekarang</button>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-      <label for="pickup">Lokasi Penjemputan</label>
-      <input type="text" id="pickup" placeholder="Contoh: Jalan Merdeka"/>
-    </div>
-    <div class="form-group">
-      <label for="tujuan">Lokasi Tujuan</label>
-      <input type="text" id="tujuan" placeholder="Contoh: Alun-alun"/>
-    </div>
-    <div class="form-group">
-      <label for="catatan">Catatan (Opsional)</label>
-      <textarea id="catatan" rows="3" placeholder="Contoh: Tunggu di gerbang depan."></textarea>
-    </div>
-    <button class="btn" onclick="hitungRute()">Hitung Harga</button>
-    <div id="map"></div>
-    <div class="price-display" id="price"></div>
-    <button class="btn" style="display:none;" id="orderBtn" onclick="kirimWA()">Pesan via WhatsApp</button>
-  </div>
 
-  <footer>
-    &copy; 2025 ZBond Ojek - All rights reserved
-  </footer>
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxGOiDUY94tnCYxsqv-YbniEl-cJSMqqA&libraries=places&callback=initMap" async defer></script>
-
-  <script>
-    let map, directionsService, directionsRenderer;
-    let jarakKM = 0;
-
-    function initMap() {
-      directionsService = new google.maps.DirectionsService();
-      directionsRenderer = new google.maps.DirectionsRenderer();
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -7.797068, lng: 110.370529 }, // Yogyakarta default
-        zoom: 13,
-      });
-      directionsRenderer.setMap(map);
-    }
-
-    function hitungRute() {
-      const asal = document.getElementById("pickup").value;
-      const tujuan = document.getElementById("tujuan").value;
-      if (!asal || !tujuan) {
-        alert("Masukkan alamat penjemputan dan tujuan.");
-        return;
-      }
-
-      directionsService.route({
-        origin: asal,
-        destination: tujuan,
-        travelMode: google.maps.TravelMode.DRIVING,
-      }, function(response, status) {
-        if (status === "OK") {
-          directionsRenderer.setDirections(response);
-          document.getElementById("map").style.display = "block";
-
-          const route = response.routes[0].legs[0];
-          jarakKM = route.distance.value / 1000;
-          let harga = Math.max(15000, Math.round(jarakKM * 3000 / 1000) * 1000);
-          document.getElementById("price").textContent = `Jarak: ${jarakKM.toFixed(1)} km | Harga: Rp${harga.toLocaleString("id-ID")}`;
-          document.getElementById("orderBtn").style.display = "block";
-        } else {
-          alert("Gagal menghitung rute. Cek alamatmu.");
+    <script>
+        // Generate random order number
+        function generateOrderNumber() {
+            const now = new Date();
+            const datePart = now.getFullYear().toString().substr(-2) + 
+                            (now.getMonth() + 1).toString().padStart(2, '0') + 
+                            now.getDate().toString().padStart(2, '0');
+            const randomPart = Math.floor(1000 + Math.random() * 9000);
+            return 'ORD' + datePart + randomPart;
         }
-      });
-    }
 
-    function kirimWA() {
-      const nama = document.getElementById("nama").value || "Pelanggan";
-      const asal = document.getElementById("pickup").value;
-      const tujuan = document.getElementById("tujuan").value;
-      const catatan = document.getElementById("catatan").value || "-";
-      let harga = Math.max(15000, Math.round(jarakKM * 3000 / 1000) * 1000);
-      const pesan = `Halo, saya ingin pesan ojek:%0A%0ANama: ${nama}%0APenjemputan: ${asal}%0ATujuan: ${tujuan}%0AJarak: ${jarakKM.toFixed(1)} km%0AHarga: Rp${harga.toLocaleString("id-ID")}%0ACatatan: ${catatan}`;
-      window.open(`https://wa.me/6283852330333?text=${pesan}`, '_blank');
-    }
-  </script>
+        // Initialize form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const orderNumber = generateOrderNumber();
+            const serviceType = document.getElementById('serviceType').value;
+            const customerName = document.getElementById('customerName').value;
+            const customerWhatsApp = document.getElementById('customerWhatsApp').value;
+            const pickupLocation = document.getElementById('pickupLocation').value;
+            const destination = document.getElementById('destination').value;
+            const price = document.getElementById('price').textContent;
+            
+            // Create WhatsApp message
+            const whatsappMessage = `*Pesanan Ojek Online Baru*%0A%0A` +
+                                    `No. Order: *${orderNumber}*%0A` +
+                                    `Jenis Pesanan: *${serviceType}*%0A` +
+                                    `Nama Konsumen: *${customerName}*%0A` +
+                                    `WhatsApp Konsumen: https://wa.me/${customerWhatsApp}%0A` +
+                                    `Lokasi Penjemputan: *${pickupLocation}*%0A` +
+                                    `Lokasi Tujuan: *${destination}*%0A` +
+                                    `Harga: *${price}*%0A%0A` +
+                                    `Silakan proses pesanan ini.`;
+            
+            // Open WhatsApp with the message
+            window.open(`https://wa.me/6283852330333?text=${whatsappMessage}`, '_blank');
+            
+            // Reset form
+            this.reset();
+            
+            // Show confirmation (you can replace with a nicer alert)
+            alert('Pesanan Anda telah dikirim ke driver. Silakan tunggu konfirmasi.');
+        });
+
+        // Initialize Google Maps
+        function initMap() {
+            // Default location (you can change this)
+            const defaultLocation = { lat: -6.2088, lng: 106.8456 }; // Jakarta
+            
+            // Create map
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: defaultLocation,
+                disableDefaultUI: true,
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [{ visibility: "off" }]
+                    }
+                ]
+            });
+            
+            // Add marker
+            new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                title: "Lokasi Anda"
+            });
+            
+            // You can add more map functionality here like geocoding for addresses
+        }
+    </script>
+    
+    <!-- Load Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxGOiDUY94tnCYxsqv-YbniEl-cJSMqqA&callback=initMap&libraries=places" async defer></script>
 </body>
 </html>
