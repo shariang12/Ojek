@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ojek Online ZBond</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #00695C;
+      --primary-light: #00897B;
+      --accent: #00BFA5;
+      --text: #263238;
+      --bg: #FAFAFA;
+      --card: #FFFFFF;
+      --error: #F44336;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      padding: 1.2rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: .5rem;
+      display: block;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: .75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn {
+      background: var(--accent);
+      border: none;
+      padding: .8rem;
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+
+    #map {
+      height: 300px;
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .price-display {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🚀 ZBond Ojek Online</h1>
+    <p>Pesan ojek dengan cepat dan aman!</p>
+  </header>
+
+  <div class="container">
+    <div class="form-group">
+      <label for="nama">Nama</label>
+      <input type="text" id="nama" placeholder="Nama lengkap kamu"/>
+    </div>
+    <div class="form-group">
+      <label for="pickup">Lokasi Penjemputan</label>
+      <input type="text" id="pickup" placeholder="Contoh: Jalan Merdeka"/>
+    </div>
+    <div class="form-group">
+      <label for="tujuan">Lokasi Tujuan</label>
+      <input type="text" id="tujuan" placeholder="Contoh: Alun-alun"/>
+    </div>
+    <div class="form-group">
+      <label for="catatan">Catatan (Opsional)</label>
+      <textarea id="catatan" rows="3" placeholder="Contoh: Tunggu di gerbang depan."></textarea>
+    </div>
+    <button class="btn" onclick="hitungRute()">Hitung Harga</button>
+    <div id="map"></div>
+    <div class="price-display" id="price"></div>
+    <button class="btn" style="display:none;" id="orderBtn" onclick="kirimWA()">Pesan via WhatsApp</button>
+  </div>
+
+  <footer>
+    &copy; 2025 ZBond Ojek - All rights reserved
+  </footer>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxGOiDUY94tnCYxsqv-YbniEl-cJSMqqA&libraries=places&callback=initMap" async defer></script>
+
+  <script>
+    let map, directionsService, directionsRenderer;
+    let jarakKM = 0;
+
+    function initMap() {
+      directionsService = new google.maps.DirectionsService();
+      directionsRenderer = new google.maps.DirectionsRenderer();
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -7.797068, lng: 110.370529 }, // Yogyakarta default
+        zoom: 13,
+      });
+      directionsRenderer.setMap(map);
+    }
+
+    function hitungRute() {
+      const asal = document.getElementById("pickup").value;
+      const tujuan = document.getElementById("tujuan").value;
+      if (!asal || !tujuan) {
+        alert("Masukkan alamat penjemputan dan tujuan.");
+        return;
+      }
+
+      directionsService.route({
+        origin: asal,
+        destination: tujuan,
+        travelMode: google.maps.TravelMode.DRIVING,
+      }, function(response, status) {
+        if (status === "OK") {
+          directionsRenderer.setDirections(response);
+          document.getElementById("map").style.display = "block";
+
+          const route = response.routes[0].legs[0];
+          jarakKM = route.distance.value / 1000;
+          let harga = Math.max(15000, Math.round(jarakKM * 3000 / 1000) * 1000);
+          document.getElementById("price").textContent = `Jarak: ${jarakKM.toFixed(1)} km | Harga: Rp${harga.toLocaleString("id-ID")}`;
+          document.getElementById("orderBtn").style.display = "block";
+        } else {
+          alert("Gagal menghitung rute. Cek alamatmu.");
+        }
+      });
+    }
+
+    function kirimWA() {
+      const nama = document.getElementById("nama").value || "Pelanggan";
+      const asal = document.getElementById("pickup").value;
+      const tujuan = document.getElementById("tujuan").value;
+      const catatan = document.getElementById("catatan").value || "-";
+      let harga = Math.max(15000, Math.round(jarakKM * 3000 / 1000) * 1000);
+      const pesan = `Halo, saya ingin pesan ojek:%0A%0ANama: ${nama}%0APenjemputan: ${asal}%0ATujuan: ${tujuan}%0AJarak: ${jarakKM.toFixed(1)} km%0AHarga: Rp${harga.toLocaleString("id-ID")}%0ACatatan: ${catatan}`;
+      window.open(`https://wa.me/6283852330333?text=${pesan}`, '_blank');
+    }
+  </script>
+</body>
+</html>
