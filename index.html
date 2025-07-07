@@ -1,503 +1,231 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ojek Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-        }
-        
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background-color: white;
-            min-height: 100vh;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        
-        header {
-            background-color: #00aa13;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo {
-            font-weight: 700;
-            font-size: 20px;
-        }
-        
-        .map-container {
-            height: 300px;
-            width: 100%;
-            position: relative;
-        }
-        
-        #map {
-            height: 100%;
-            width: 100%;
-        }
-        
-        .order-form {
-            padding: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        
-        .btn {
-            background-color: #00aa13;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 16px;
-            width: 100%;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: #008c10;
-        }
-        
-        .price-display {
-            background-color: #f8f8f8;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 18px;
-        }
-        
-        .location-inputs {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .search-box {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            z-index: 10;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 10px 15px;
-            border-radius: 20px;
-            border: none;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-            font-size: 14px;
-        }
-        
-        .location-pin {
-            position: absolute;
-            z-index: 5;
-            font-size: 30px;
-        }
-        
-        .pickup-pin {
-            color: #00aa13;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -100%);
-        }
-        
-        .destination-pin {
-            color: #ff0000;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: none;
-        }
-        
-        .location-tabs {
-            display: flex;
-            margin-bottom: 10px;
-        }
-        
-        .location-tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            background-color: #eee;
-            cursor: pointer;
-        }
-        
-        .location-tab.active {
-            background-color: #00aa13;
-            color: white;
-        }
-        
-        .hidden {
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grab Mode Gelap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #00b14f;
+      --dark-bg: #121212;
+      --card-bg: #1e1e1e;
+      --text-color: #fff;
+      --muted: #bbbbbb;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: var(--dark-bg);
+      color: var(--text-color);
+    }
+    .app {
+      max-width: 500px;
+      margin: auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: var(--green);
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    #map {
+      height: 300px;
+      width: 100%;
+    }
+    .form-container {
+      padding: 1rem;
+      background: var(--card-bg);
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: block;
+      color: var(--muted);
+    }
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      background: #2c2c2c;
+      border: 1px solid #444;
+      color: var(--text-color);
+    }
+    .btn {
+      background: var(--green);
+      color: white;
+      padding: 0.75rem;
+      border: none;
+      width: 100%;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #009e45;
+    }
+    .info-box {
+      background: #1a3e2d;
+      border: 1px solid #00b14f99;
+      padding: 0.8rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    .info-box span {
+      display: block;
+      margin-top: 0.2rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">OjekOnline</div>
-        </header>
-        
-        <div class="map-container">
-            <div id="map"></div>
-            <div class="search-box">
-                <input type="text" id="addressInput" class="search-input" placeholder="Cari alamat..." autocomplete="off">
-            </div>
-            <div class="location-pin pickup-pin">📍</div>
-            <div class="location-pin destination-pin">📍</div>
+  <div class="app">
+    <header>🛵 Grab Mode Gelap</header>
+    <div id="map"></div>
+
+    <div class="form-container">
+      <div class="info-box" id="infoBox" style="display: none;">
+        <strong>Estimasi:</strong>
+        <span id="distance">Jarak: -</span>
+        <span id="duration">Waktu: -</span>
+        <span id="price">Harga: Rp0</span>
+      </div>
+
+      <form id="orderForm">
+        <div class="form-group">
+          <label for="pickup">Penjemputan</label>
+          <input type="text" id="pickup" placeholder="Alamat penjemputan" required/>
         </div>
-        
-        <div class="order-form">
-            <div class="price-display">
-                Estimasi Harga: <span id="price">Rp15.000</span>
-            </div>
-            
-            <form id="orderForm">
-                <div class="location-tabs">
-                    <div class="location-tab active" id="pickupTab">Penjemputan</div>
-                    <div class="location-tab" id="destinationTab">Tujuan</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="pickupLocation">Alamat Penjemputan</label>
-                    <input type="text" id="pickupLocation" placeholder="Pilih di peta atau ketik alamat" required readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="destination">Alamat Tujuan</label>
-                    <input type="text" id="destination" placeholder="Pilih di peta atau ketik alamat" required readonly>
-                </div>
-                
-                <div class="form-group">
-                    <label for="serviceType">Jenis Layanan</label>
-                    <select id="serviceType" required>
-                        <option value="ojek">Ojek</option>
-                        <option value="ojek_box">Ojek Box</option>
-                        <option value="ojek_motor">Ojek Motor</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="customerName">Nama Anda</label>
-                    <input type="text" id="customerName" placeholder="Masukkan nama lengkap" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="customerWhatsApp">Nomor WhatsApp</label>
-                    <input type="tel" id="customerWhatsApp" placeholder="Contoh: 6281234567890" required>
-                </div>
-                
-                <button type="submit" class="btn">Pesan Sekarang</button>
-            </form>
+
+        <div class="form-group">
+          <label for="destination">Tujuan</label>
+          <input type="text" id="destination" placeholder="Alamat tujuan" required/>
         </div>
+
+        <div class="form-group">
+          <label for="name">Nama</label>
+          <input type="text" id="name" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">No WhatsApp</label>
+          <input type="tel" id="phone" placeholder="628xxx" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="service">Layanan</label>
+          <select id="service">
+            <option value="ojek">Ojek</option>
+            <option value="ojek_box">Ojek Box (+Rp5.000)</option>
+            <option value="ojek_motor">Ojek Motor (+Rp3.000)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn">Pesan Sekarang</button>
+      </form>
     </div>
+  </div>
 
-    <script>
-        // Global variables
-        let map;
-        let pickupMarker;
-        let destinationMarker;
-        let autocomplete;
-        let geocoder;
-        let currentLocationType = 'pickup';
-        let pickupLocation = null;
-        let destinationLocation = null;
-        let directionsService;
-        let directionsRenderer;
-        
-        // Generate random order number
-        function generateOrderNumber() {
-            const now = new Date();
-            const datePart = now.getFullYear().toString().substr(-2) + 
-                            (now.getMonth() + 1).toString().padStart(2, '0') + 
-                            now.getDate().toString().padStart(2, '0');
-            const randomPart = Math.floor(1000 + Math.random() * 9000);
-            return 'ORD' + datePart + randomPart;
-        }
+  <script>
+    let map, directionsService, directionsRenderer;
+    let pickupPlace, destinationPlace;
+    const pricePerKm = 3000;
+    const basePrice = 10000;
 
-        // Initialize form submission
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (!pickupLocation || !destinationLocation) {
-                alert('Silakan tentukan lokasi penjemputan dan tujuan di peta');
-                return;
-            }
-            
-            // Get form values
-            const orderNumber = generateOrderNumber();
-            const serviceType = document.getElementById('serviceType').value;
-            const customerName = document.getElementById('customerName').value;
-            const customerWhatsApp = document.getElementById('customerWhatsApp').value;
-            const pickupAddress = document.getElementById('pickupLocation').value;
-            const destinationAddress = document.getElementById('destination').value;
-            const price = document.getElementById('price').textContent;
-            
-            // Create WhatsApp message
-            const whatsappMessage = `*Pesanan Ojek Online Baru*%0A%0A` +
-                                    `No. Order: *${orderNumber}*%0A` +
-                                    `Jenis Pesanan: *${serviceType}*%0A` +
-                                    `Nama Konsumen: *${customerName}*%0A` +
-                                    `WhatsApp Konsumen: https://wa.me/${customerWhatsApp}%0A` +
-                                    `Lokasi Penjemputan: *${pickupAddress}*%0A` +
-                                    `Lokasi Tujuan: *${destinationAddress}*%0A` +
-                                    `Harga: *${price}*%0A%0A` +
-                                    `Silakan proses pesanan ini.`;
-            
-            // Open WhatsApp with the message
-            window.open(`https://wa.me/6283852330333?text=${whatsappMessage}`, '_blank');
-            
-            // Show confirmation
-            alert('Pesanan Anda telah dikirim ke driver. Silakan tunggu konfirmasi.');
-        });
+    function initMap() {
+      const darkStyle = [
+        { "elementType": "geometry", "stylers": [{ "color": "#212121" }] },
+        { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] },
+        { "elementType": "labels.text.fill", "stylers": [{ "color": "#757575" }] },
+        { "elementType": "labels.text.stroke", "stylers": [{ "color": "#212121" }] },
+        { "featureType": "administrative", "elementType": "geometry", "stylers": [{ "color": "#757575" }] },
+        { "featureType": "poi", "elementType": "labels.text.fill", "stylers": [{ "color": "#757575" }] },
+        { "featureType": "road", "elementType": "geometry", "stylers": [{ "color": "#383838" }] },
+        { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "color": "#8a8a8a" }] },
+        { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#2f3948" }] },
+        { "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#000000" }] },
+        { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "color": "#3d3d3d" }] }
+      ];
 
-        // Initialize Google Maps
-        function initMap() {
-            // Default location (Jakarta)
-            const defaultLocation = { lat: -6.2088, lng: 106.8456 };
-            
-            // Create map
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 15,
-                center: defaultLocation,
-                disableDefaultUI: true,
-                styles: [
-                    {
-                        featureType: "poi",
-                        elementType: "labels",
-                        stylers: [{ visibility: "off" }]
-                    }
-                ]
-            });
-            
-            // Initialize services
-            geocoder = new google.maps.Geocoder();
-            directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer({
-                suppressMarkers: true,
-                preserveViewport: true
-            });
-            directionsRenderer.setMap(map);
-            
-            // Initialize autocomplete
-            const input = document.getElementById('addressInput');
-            autocomplete = new google.maps.places.Autocomplete(input);
-            autocomplete.bindTo('bounds', map);
-            
-            // Create markers
-            pickupMarker = new google.maps.Marker({
-                position: defaultLocation,
-                map: map,
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 8,
-                    fillColor: '#00aa13',
-                    fillOpacity: 1,
-                    strokeWeight: 2,
-                    strokeColor: 'white'
-                },
-                draggable: true
-            });
-            
-            destinationMarker = new google.maps.Marker({
-                position: null,
-                map: map,
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    scale: 8,
-                    fillColor: '#ff0000',
-                    fillOpacity: 1,
-                    strokeWeight: 2,
-                    strokeColor: 'white'
-                },
-                draggable: true
-            });
-            
-            // Add click listener for map
-            map.addListener('click', (e) => {
-                if (currentLocationType === 'pickup') {
-                    setPickupLocation(e.latLng);
-                } else {
-                    setDestinationLocation(e.latLng);
-                }
-            });
-            
-            // Add marker drag listeners
-            pickupMarker.addListener('dragend', (e) => {
-                setPickupLocation(e.latLng);
-            });
-            
-            destinationMarker.addListener('dragend', (e) => {
-                setDestinationLocation(e.latLng);
-            });
-            
-            // Add autocomplete selection listener
-            autocomplete.addListener('place_changed', () => {
-                const place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    return;
-                }
-                
-                if (currentLocationType === 'pickup') {
-                    setPickupLocation(place.geometry.location);
-                } else {
-                    setDestinationLocation(place.geometry.location);
-                }
-                
-                document.getElementById('addressInput').value = '';
-            });
-            
-            // Tab click handlers
-            document.getElementById('pickupTab').addEventListener('click', () => {
-                setCurrentLocationType('pickup');
-            });
-            
-            document.getElementById('destinationTab').addEventListener('click', () => {
-                setCurrentLocationType('destination');
-            });
-            
-            // Try to get user's current location
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        const pos = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        };
-                        setPickupLocation(pos);
-                        map.setCenter(pos);
-                    },
-                    () => {
-                        // Default to Jakarta if geolocation fails
-                        setPickupLocation(defaultLocation);
-                    }
-                );
-            } else {
-                // Browser doesn't support Geolocation
-                setPickupLocation(defaultLocation);
-            }
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -6.2, lng: 106.8 },
+        zoom: 13,
+        styles: darkStyle
+      });
+
+      directionsService = new google.maps.DirectionsService();
+      directionsRenderer = new google.maps.DirectionsRenderer({ map });
+
+      const pickupInput = document.getElementById("pickup");
+      const destInput = document.getElementById("destination");
+
+      const pickupAuto = new google.maps.places.Autocomplete(pickupInput);
+      const destAuto = new google.maps.places.Autocomplete(destInput);
+
+      pickupAuto.addListener("place_changed", () => {
+        pickupPlace = pickupAuto.getPlace();
+        if (pickupPlace && destinationPlace) calculateRoute();
+      });
+
+      destAuto.addListener("place_changed", () => {
+        destinationPlace = destAuto.getPlace();
+        if (pickupPlace && destinationPlace) calculateRoute();
+      });
+    }
+
+    function calculateRoute() {
+      directionsService.route({
+        origin: pickupPlace.geometry.location,
+        destination: destinationPlace.geometry.location,
+        travelMode: google.maps.TravelMode.DRIVING
+      }, (result, status) => {
+        if (status === "OK") {
+          directionsRenderer.setDirections(result);
+          const route = result.routes[0].legs[0];
+          const km = route.distance.value / 1000;
+          const time = route.duration.text;
+          let price = basePrice + Math.max(0, (km - 2)) * pricePerKm;
+
+          const type = document.getElementById("service").value;
+          if (type === "ojek_box") price += 5000;
+          if (type === "ojek_motor") price += 3000;
+
+          document.getElementById("distance").textContent = `Jarak: ${km.toFixed(1)} km`;
+          document.getElementById("duration").textContent = `Waktu: ${time}`;
+          document.getElementById("price").textContent = `Harga: Rp${Math.round(price).toLocaleString("id-ID")}`;
+          document.getElementById("infoBox").style.display = "block";
         }
-        
-        function setCurrentLocationType(type) {
-            currentLocationType = type;
-            
-            // Update UI
-            document.getElementById('pickupTab').classList.toggle('active', type === 'pickup');
-            document.getElementById('destinationTab').classList.toggle('active', type === 'destination');
-            
-            // Show appropriate pin
-            document.querySelector('.pickup-pin').style.display = type === 'pickup' ? 'block' : 'none';
-            document.querySelector('.destination-pin').style.display = type === 'destination' ? 'block' : 'none';
-            
-            // Focus on the selected location if available
-            if (type === 'pickup' && pickupLocation) {
-                map.panTo(pickupLocation);
-            } else if (type === 'destination' && destinationLocation) {
-                map.panTo(destinationLocation);
-            }
-        }
-        
-        function setPickupLocation(latLng) {
-            pickupLocation = latLng;
-            pickupMarker.setPosition(latLng);
-            
-            // Geocode to get address
-            geocoder.geocode({ location: latLng }, (results, status) => {
-                if (status === 'OK' && results[0]) {
-                    document.getElementById('pickupLocation').value = results[0].formatted_address;
-                }
-            });
-            
-            // Calculate route if destination is set
-            if (destinationLocation) {
-                calculateRoute();
-            }
-        }
-        
-        function setDestinationLocation(latLng) {
-            destinationLocation = latLng;
-            destinationMarker.setPosition(latLng);
-            document.querySelector('.destination-pin').style.display = 'none';
-            
-            // Geocode to get address
-            geocoder.geocode({ location: latLng }, (results, status) => {
-                if (status === 'OK' && results[0]) {
-                    document.getElementById('destination').value = results[0].formatted_address;
-                }
-            });
-            
-            // Calculate route if pickup is set
-            if (pickupLocation) {
-                calculateRoute();
-            }
-        }
-        
-        function calculateRoute() {
-            if (!pickupLocation || !destinationLocation) return;
-            
-            directionsService.route(
-                {
-                    origin: pickupLocation,
-                    destination: destinationLocation,
-                    travelMode: google.maps.TravelMode.DRIVING
-                },
-                (response, status) => {
-                    if (status === 'OK') {
-                        directionsRenderer.setDirections(response);
-                        
-                        // Calculate price based on distance (simple calculation)
-                        const distance = response.routes[0].legs[0].distance.value; // in meters
-                        const price = calculatePrice(distance);
-                        document.getElementById('price').textContent = `Rp${price.toLocaleString('id-ID')}`;
-                    }
-                }
-            );
-        }
-        
-        function calculatePrice(distanceMeters) {
-            const distanceKm = distanceMeters / 1000;
-            const basePrice = 10000;
-            const pricePerKm = 2000;
-            return Math.round(basePrice + (distanceKm * pricePerKm));
-        }
-    </script>
-    
-    <!-- Load Google Maps API with Places library -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxGOiDUY94tnCYxsqv-YbniEl-cJSMqqA&callback=initMap&libraries=places,geometry" async defer></script>
+      });
+    }
+
+    document.getElementById("orderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const pickup = document.getElementById("pickup").value;
+      const destination = document.getElementById("destination").value;
+      const price = document.getElementById("price").textContent;
+      const distance = document.getElementById("distance").textContent;
+      const duration = document.getElementById("duration").textContent;
+      const serviceText = document.getElementById("service").options[document.getElementById("service").selectedIndex].text;
+
+      const msg = `*Pesanan Grab Online*%0A%0ANama: ${name}%0ANo. WA: https://wa.me/${phone}%0ALayanan: ${serviceText}%0APenjemputan: ${pickup}%0ATujuan: ${destination}%0A${distance}%0A${duration}%0A${price}`;
+      window.open(`https://wa.me/6283852330333?text=${msg}`, "_blank");
+    });
+  </script>
+
+  <!-- Google Maps API Key -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxGOiDUY94tnCYxsqv-YbniEl-cJSMqqA&libraries=places&callback=initMap" async defer></script>
 </body>
 </html>
